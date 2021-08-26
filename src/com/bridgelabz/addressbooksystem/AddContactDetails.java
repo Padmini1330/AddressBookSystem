@@ -7,30 +7,31 @@ public class AddContactDetails
 {
 	private ArrayList<EditDetails> addressList = new ArrayList<EditDetails>();
 
-	public void addPerson() {
+	public void addPerson() 
+	{
 		System.out.println("Enter Person details:");
 		addressList.add(addContact());
 	}
 	public static EditDetails addContact() {
-		Scanner sc = new Scanner(System.in);
+		Scanner scanner = new Scanner(System.in);
 		EditDetails contact = new EditDetails();
 
 		System.out.print("Enter First Name:");
-		contact.setFirstName(sc.next());
+		contact.setFirstName(scanner.next());
 		System.out.print("Enter Second Name: ");
-		contact.setLastName(sc.next());
+		contact.setLastName(scanner.next());
 		System.out.print("Enter Address: ");
-		contact.setAddress(sc.next());
+		contact.setAddress(scanner.next());
 		System.out.print("Enter City: ");
-		contact.setCity(sc.next());
+		contact.setCity(scanner.next());
 		System.out.print("Enter State: ");
-		contact.setState(sc.next());
+		contact.setState(scanner.next());
 		System.out.print("Enter Pin code: ");
-		contact.setPinCode(sc.nextLine());
+		contact.setPinCode(scanner.nextLine());
 		System.out.print("Enter Phone nmber: ");
-		contact.setPhoneNumber(sc.next());
+		contact.setPhoneNumber(scanner.next());
 		System.out.print("Enter Email: ");
-		contact.setEmail(sc.next());
+		contact.setEmail(scanner.next());
 		return contact;
 	}
 
@@ -61,7 +62,7 @@ public class AddContactDetails
 	}
 
 	public void display() {
-		Scanner sc = new Scanner(System.in);
+		Scanner scanner = new Scanner(System.in);
 		EditDetails contact = null; 
 		if(addressList.size()!=0) 
 		{
@@ -71,7 +72,7 @@ public class AddContactDetails
 		}
 		System.out.println();
 		System.out.println("Enter name to see details");
-		String name = sc.next();
+		String name = scanner.next();
 
 		for(int i = 0;i < addressList.size();i++) 
 		{
@@ -99,7 +100,8 @@ public class AddContactDetails
 
 
 
-	public static void displayEditDetails(EditDetails contact) {
+	public static void displayEditDetails(EditDetails contact) 
+	{
 		System.out.println("First Name : "+contact.getFirstName());
 		System.out.println("Second Name : "+ contact.getLastName());
 		System.out.println("Address : "+ contact.getAddress());
@@ -108,6 +110,27 @@ public class AddContactDetails
 		System.out.println("Pin code : "+contact.getPinCode());
 		System.out.println("Phone nmber : "+contact.getPhoneNumber() );
 		System.out.println("Email : "+contact.getEmail());
+	}
+	
+	public void deleteContact(String name) 
+	{
+		if(addressList.size()!=0) 
+		{
+			for(int i=0;i<addressList.size();i++) 
+			{
+				if(addressList.get(i).getFirstName().equals(name)) 
+				{
+					addressList.remove(i);
+					System.out.println("Deleted details of : "+name);
+					return;
+				}
+			}
+			System.out.println("Name not found");
+		}
+		else
+		{
+			System.out.println("Add contacts to delete");
+		}
 	}
 }
 
