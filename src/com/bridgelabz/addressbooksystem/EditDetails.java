@@ -1,6 +1,7 @@
 package com.bridgelabz.addressbooksystem;
 
 public class EditDetails {
+
 	private String firstName;
 	private String lastName;
 	private String address;
@@ -61,4 +62,3 @@ public class EditDetails {
 		return this.email;
 	}
 }
-

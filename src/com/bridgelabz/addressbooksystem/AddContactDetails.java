@@ -1,24 +1,40 @@
 package com.bridgelabz.addressbooksystem;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
-public class AddContactDetails 
+public class AddContactDetails
 {
 	private ArrayList<EditDetails> addressBook = new ArrayList<EditDetails>();
-	
-	public void addContact() 
+	public void addPerson() 
 	{
-		
-		EditDetails detail = new EditDetails();
-		detail.setFirstName("Padmini");
-		detail.setLastName("V");
-		detail.setAddress("JP nagar");
-		detail.setCity("Bangalore");
-		detail.setState("Karnataka");
-		detail.setPinCode("560108");
-		detail.setPhoneNumber("9742514342");
-		detail.setEmail("padm1330@gmail.com");
-		addressBook.add(detail);
-		
+		Scanner sc = new Scanner(System.in);
+		EditDetails contact = new EditDetails();
+		System.out.println("-------Enter the Contact Details--------");
+		System.out.print("Enter First Name: ");
+		sc.next();
+		contact.setFirstName(sc.nextLine());
+		System.out.print("Enter Second Name: ");
+		sc.next();
+		contact.setLastName(sc.nextLine());
+		System.out.print("Enter Address: ");
+		sc.next();
+		contact.setAddress(sc.nextLine());
+		System.out.print("Enter City: ");
+		contact.setCity(sc.next());
+		System.out.print("Enter State: ");
+		sc.next();
+		contact.setState(sc.nextLine());
+		System.out.print("Enter Pin code: ");
+		contact.setPinCode(sc.next());
+		System.out.print("Enter Phone nmber: ");
+		contact.setPhoneNumber(sc.next());
+		System.out.print("Enter email: ");
+		contact.setEmail(sc.next());
+		sc.close();
+		addressBook.add(contact);
+
 	}
+
+
 }
