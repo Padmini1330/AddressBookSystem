@@ -1,137 +1,141 @@
 package com.bridgelabz.addressbooksystem;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
-public class AddContactDetails
+public class AddContactDetails 
 {
-	private ArrayList<EditDetails> addressList = new ArrayList<EditDetails>();
 
-	public void addPerson() 
+	Scanner scanner = new Scanner(System.in);
+	private EditDetails contactBook[];
+	private static int numberOfContacts = 0;
+	private String addressBookName;
+
+	public AddContactDetails(String addressBookName) 
 	{
-		System.out.println("Enter Person details:");
-		addressList.add(addContact());
-	}
-	public static EditDetails addContact() {
-		Scanner scanner = new Scanner(System.in);
-		EditDetails contact = new EditDetails();
-
-		System.out.print("Enter First Name:");
-		contact.setFirstName(scanner.next());
-		System.out.print("Enter Second Name: ");
-		contact.setLastName(scanner.next());
-		System.out.print("Enter Address: ");
-		contact.setAddress(scanner.next());
-		System.out.print("Enter City: ");
-		contact.setCity(scanner.next());
-		System.out.print("Enter State: ");
-		contact.setState(scanner.next());
-		System.out.print("Enter Pin code: ");
-		contact.setPinCode(scanner.nextLine());
-		System.out.print("Enter Phone nmber: ");
-		contact.setPhoneNumber(scanner.next());
-		System.out.print("Enter Email: ");
-		contact.setEmail(scanner.next());
-		return contact;
+		this.contactBook = new EditDetails[20];
+		this.addressBookName = addressBookName;
 	}
 
-	public void editPerson(String name) {
-		EditDetails contact = null ;
-		int i = 0;
-		if(addressList.size()!=0) {
-			while(i < addressList.size()) {
-				if(addressList.get(i).getFirstName().equals(name)) {
-					contact = addressList.get(i);
-					break;
-				}
-				i++;
-			}
-			if(contact == null) {
-				System.out.println("Name not found");
+	public String getAddressBookName() 
+	{
+		return this.addressBookName;
+	}
+
+	public void addContact() 
+	{
+		System.out.println("Add Contact");
+		System.out.println("Enter first name:");
+		String firstName = scanner.next();
+		System.out.println("Enter last name");
+		String lastName = scanner.next();
+		System.out.println("Enter city");
+		String city = scanner.next();
+		System.out.println("Enter address");
+		String address = scanner.next();
+		System.out.println("Enter state");
+		String state = scanner.next();
+		System.out.println("Enter Zip");
+		int zip = scanner.nextInt();
+		System.out.println("Enter Phone");
+		int phoneNumber = scanner.nextInt();
+		System.out.println("Enter email");
+		String email = scanner.next();
+		contactBook[numberOfContacts] = new EditDetails(firstName, lastName, address, state, city, zip, phoneNumber, email);
+		numberOfContacts++;
+	}
+
+	public void showContacts() {
+		for (int i = 0; i < numberOfContacts; i++) {
+			System.out.println(contactBook[i]);
+		}
+	}
+
+	public void editContact() {
+		System.out.println("Edit contact:");
+		System.out.println("enter option 1.First Name 2.Last Name 3.City 4.State 5.Zip Code 6.Phone 7.Email");
+		int choice = scanner.nextInt();
+		System.out.println("Enter First Name of contact to be edited");
+		String editName = scanner.next();
+		int index = 0;
+		for (index = 0; index < numberOfContacts; index++) 
+		{
+			if (contactBook[index].getFirstName().equals(editName)) 
+			{
+				break;
+			} else 
+			{
+				System.out.println("no such contact found!!");
 				return;
 			}
-
-			System.out.println("Enter new details  of "+name);
-			addressList.set(i,addContact());
-			System.out.println("Modified Details Successfully");
 		}
-		else
+		switch (choice) 
 		{
-			System.out.println("Add some contacts to Edit");
+		case 1:
+			System.out.println("Enter new First Name");
+			String newFName = scanner.next();
+			contactBook[index].setFirstName(newFName);
+			System.out.println("Edited");
+			break;
+		case 2:
+			System.out.println("Enter new Last Name");
+			String newLName = scanner.next();
+			contactBook[index].setLastName(newLName);
+			System.out.println("Edited");
+			break;
+		case 3:
+			System.out.println("Enter new City");
+			String newCity = scanner.next();
+			contactBook[index].setCity(newCity);
+			System.out.println("Edited");
+			break;
+		case 4:
+			System.out.println("Enter new State");
+			String newState = scanner.next();
+			contactBook[index].setState(newState);
+			System.out.println("Edited");
+			break;
+		case 5:
+			System.out.println("Enter new State");
+			int newZip = scanner.nextInt();
+			contactBook[index].setZipCode(newZip);
+			System.out.println("Edited");
+			break;
+		case 6:
+			System.out.println("Enter new Phone Number");
+			int newPNumber = scanner.nextInt();
+			contactBook[index].setPhoneNumber(newPNumber);
+			System.out.println("Edited");
+			break;
+		case 7:
+			System.out.println("Enter new Email");
+			String newEmail = scanner.next();
+			contactBook[index].setEmailId(newEmail);
+			System.out.println("Edited");
+			break;
 		}
 	}
 
-	public void display() {
-		Scanner scanner = new Scanner(System.in);
-		EditDetails contact = null; 
-		if(addressList.size()!=0) 
+	public void deleteContact() 
+	{
+		System.out.println("Enter Name of Contact to delete");
+		String deletedName = scanner.next();
+		int index = 0;
+		for (index = 0; index < numberOfContacts; index++) 
 		{
-		for(int i=0; i<addressList.size();i++) 
-		{
-			System.out.print(addressList.get(i).getFirstName()+"  ");
-		}
-		System.out.println();
-		System.out.println("Enter name to see details");
-		String name = scanner.next();
-
-		for(int i = 0;i < addressList.size();i++) 
-		{
-			if(addressList.get(i).getFirstName().equals(name)) 
+			if (contactBook[index].getFirstName().equals(deletedName)) 
 			{
-				contact = addressList.get(i);
 				break;
+			} else {
+				System.out.println("there is no such contact!!");
+				return;
 			}
 		}
-		if(contact == null) 
+
+		for (int i = index + 1; i < numberOfContacts; i++) 
 		{
-			System.out.println("name not found");
-			return;
+			contactBook[i - 1] = contactBook[i];
 		}
-
-		displayEditDetails(contact);
-		}
-		else
-		{
-			System.out.println("Add contacts");
-		}
-		
-
-	}
-
-
-
-	public static void displayEditDetails(EditDetails contact) 
-	{
-		System.out.println("First Name : "+contact.getFirstName());
-		System.out.println("Second Name : "+ contact.getLastName());
-		System.out.println("Address : "+ contact.getAddress());
-		System.out.println("City : "+contact.getCity());
-		System.out.println("State : "+contact.getState());
-		System.out.println("Pin code : "+contact.getPinCode());
-		System.out.println("Phone nmber : "+contact.getPhoneNumber() );
-		System.out.println("Email : "+contact.getEmail());
-	}
-	
-	public void deleteContact(String name) 
-	{
-		if(addressList.size()!=0) 
-		{
-			for(int i=0;i<addressList.size();i++) 
-			{
-				if(addressList.get(i).getFirstName().equals(name)) 
-				{
-					addressList.remove(i);
-					System.out.println("Deleted details of : "+name);
-					return;
-				}
-			}
-			System.out.println("Name not found");
-		}
-		else
-		{
-			System.out.println("Add contacts to delete");
-		}
+		numberOfContacts--;
+		System.out.println("Contact deleted");
 	}
 }
-
-
