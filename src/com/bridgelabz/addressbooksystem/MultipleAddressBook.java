@@ -24,7 +24,7 @@ public class MultipleAddressBook
 		{
 			if (bookArray[index].getAddressBookName().equals(name)) 
 			{
-				System.out.println("this contact book alredy exists!!");
+				System.out.println("this contact book already exists!!");
 				
 			}
 		}
