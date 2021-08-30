@@ -6,7 +6,7 @@ public class AddressBookMain
 	public static void main(String args[]) 
 	{
 
-		System.out.println("*********** Welcome to address book program  *************");
+		System.out.println("**** Welcome to Address book program  ****");
 		Scanner scanner = new Scanner(System.in);
 		AddContactDetails addressList = new AddContactDetails();
 		int choice = 0;
