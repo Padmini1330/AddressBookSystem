@@ -3,16 +3,12 @@ package com.bridgelabz.addressbooksystem;
 import java.util.Scanner;
 public class MultipleAddressBook 
 {
-	private AddContactDetails bookArray[];
+	private AddContactDetails addressBookArray[];
 	private int bookNumber = -1;
-	
 	private static int numberOfAddressBooks = 0;
-	
 	Scanner scanner = new Scanner(System.in);
-
-	MultipleAddressBook() 
-	{
-		bookArray = new AddContactDetails[10];
+	public MultipleAddressBook() {
+		addressBookArray = new AddContactDetails[10];
 	}
 
 	public void addAddressBooks() 
@@ -22,14 +18,23 @@ public class MultipleAddressBook
 		int index = 0;
 		for (index = 0; index < numberOfAddressBooks; index++) 
 		{
-			if (bookArray[index].getAddressBookName().equals(name)) 
+			if (addressBookArray[index].getAddressBookName().equals(name)) 
 			{
-				System.out.println("this contact book already exists!!");
-				
+				System.out.println("this contact book already exists!");
+
 			}
 		}
-		bookArray[numberOfAddressBooks] = new AddContactDetails(name);
+		addressBookArray[numberOfAddressBooks] = new AddContactDetails(name);
+		System.out.println("address book has been added!");
 		numberOfAddressBooks++;
+	}
+
+	public void showAddressBook() 
+	{
+		for (int i = 0; i < numberOfAddressBooks; i++) 
+		{
+			System.out.println(addressBookArray[i].getAddressBookName());
+		}
 	}
 
 	public int selectAddressBook() 
@@ -39,12 +44,11 @@ public class MultipleAddressBook
 		int index = 0;
 		for (index = 0; index < numberOfAddressBooks; index++) 
 		{
-			if (bookArray[index].getAddressBookName().equals(name)) 
+			if (addressBookArray[index].getAddressBookName().equals(name)) 
 			{
 				bookNumber = index;
 				break;
-			}
-			else
+			} else
 				continue;
 		}
 		if (bookNumber == -1) 
@@ -57,21 +61,21 @@ public class MultipleAddressBook
 
 	public void addContact() 
 	{
-		bookArray[bookNumber].addContact();
+		addressBookArray[bookNumber].addContact();
 	}
 
 	public void editContact() 
 	{
-		bookArray[bookNumber].editContact();
+		addressBookArray[bookNumber].editContact();
 	}
 
 	public void showContacts() 
 	{
-		bookArray[bookNumber].showContacts();
+		addressBookArray[bookNumber].showContacts();
 	}
 
 	public void deleteContact() 
 	{
-		bookArray[bookNumber].deleteContact();
+		addressBookArray[bookNumber].deleteContact();
 	}
 }
