@@ -3,38 +3,62 @@ package com.bridgelabz.addressbooksystem;
 import java.util.Scanner;
 public class AddressBookMain 
 {
-	public static void main(String args[]) 
+	public static void main(String[] args) 
 	{
+		System.out.println("*****Welcome to Address Book Program*****");
+		MultipleAddressBook addressBooks = new MultipleAddressBook();
+		menu(addressBooks);
+	}
 
-		System.out.println("**** Welcome to Address book program  ****");
+	public static void menu(MultipleAddressBook addressBooks) 
+	{
 		Scanner scanner = new Scanner(System.in);
-		AddContactDetails addressList = new AddContactDetails();
-		int choice = 0;
-		boolean exit = true;
-		while(exit) 
+		for (;;) 
 		{
-			System.out.println("Enter 1: Add Contact 2. Edit existing Contact 3. Display 4. Delete Contact 5: Exit");
-			choice  = scanner.nextInt();
-			switch(choice) {
-			case 1 :
-				addressList.addPerson();
+			for (;;) 
+			{
+				System.out.println("1.create new address book\n2.edit existing address book\n3.show address books\n4.exit");
+				int choice = scanner.nextInt();
+				if (choice == 1) 
+				{
+					addressBooks.addAddressBooks();
+				} 
+				else if (choice == 2) 
+				{
+					if (addressBooks.selectAddressBook() == 1)
+						break;
+				} 
+				else if (choice == 3) 
+				{
+					addressBooks.showAddressBook();
+				} 
+				else 
+				{
+					return;
+				}
+			}
+
+			System.out.println("1.Add contact\n2.Show contact\n3.Edit contact\n4.Delete contact\n5.exit");
+			int choice = scanner.nextInt();
+			if (choice == 5)
 				break;
-			case 2 :
-				System.out.println("Enter the Contact Name to Edit Details");
-				addressList.editPerson(scanner.next());
+
+			switch (choice) 
+			{
+			case 1:
+				addressBooks.addContact();
+				break;
+			case 2:
+				addressBooks.showContacts();
 				break;
 			case 3:
-				addressList.display();
+				addressBooks.editContact();
 				break;
 			case 4:
-				System.out.println("Enter name");
-				addressList.deleteContact(scanner.next());
+				addressBooks.deleteContact();
 				break;
-			default:
-				exit = false;
-
 			}
-			System.out.println();
+
 		}
 	}
 }
