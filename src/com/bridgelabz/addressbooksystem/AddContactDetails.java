@@ -187,4 +187,24 @@ public class AddContactDetails implements AddContactDetailsIF
 		}
 
 	}
+	
+	public void showCountofContacts() 
+	{
+		int flag1=0,flag2=0;
+		System.out.println("number of contact persons by state: ");
+		for (String name : personWithState.keySet()) 
+		{
+			System.out.println("Count of people/person in state " + name +" is " + personWithState.get(name).size());
+			flag1=1;
+		}
+		System.out.println("number of contact persons by city: ");
+		for (String name : personWithCity.keySet())
+		{
+			System.out.println("Count of people/person in city " + name +" is " + personWithCity.get(name).size());
+			flag2=1;
+		}
+		
+		if(flag1==0 || flag2==0)
+			System.out.println("No contacts found!!");
+	}
 }
