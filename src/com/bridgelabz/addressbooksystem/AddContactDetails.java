@@ -43,6 +43,7 @@ public class AddContactDetails implements AddContactDetailsIF
 		System.out.println("Enter email");
 		String email = scanner.next();
 		EditDetails contact = new EditDetails(firstName, lastName, address, state, city, zip, phoneNumber, email);
+		
 		if(contact.equals(addressBookContact)) 
 		{
 			System.out.println("Contact "+firstName+" already exists!");
