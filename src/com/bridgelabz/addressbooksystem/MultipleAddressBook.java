@@ -37,6 +37,43 @@ public class MultipleAddressBook
 			System.out.println(addressBookName);
 		}
 	}
+	
+	public void searchPersonByState(String name, String state) 
+	{
+		int searchCount=0;
+		for(AddressBook addressBook:addressBooksArray.values()) 
+		{
+			for(EditDetails contact:addressBook.getContact()) 
+			{
+				if(contact.getFirstName().equals(name) && contact.getState().equals(state)) 
+				{
+					System.out.println("contact "+name+" is found ");
+					System.out.println(contact);
+					searchCount++;
+				}
+			}
+		}
+		if(searchCount==0)
+			System.out.println("Searched for contact "+ name+ " Contact not found!");
+	}
+	public void searchPersonByCity(String name, String city) 
+	{
+		int searchCount=0;
+		for(AddressBook addressBook:addressBooksArray.values()) 
+		{
+			for(EditDetails contact:addressBook.getContact()) 
+			{
+				if(contact.getFirstName().equals(name) && contact.getCity().equals(city)) 
+				{
+					System.out.println("contact "+name+" is found ");
+					System.out.println(contact);
+					searchCount++;
+				}
+			}
+		}
+		if(searchCount==0)
+			System.out.println("Searched for contact "+ name+ ". Contact not found!");
+	}
 
 	public AddressBook selectAddressBook(String name) 
 	{	
