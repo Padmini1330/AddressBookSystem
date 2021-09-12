@@ -20,7 +20,7 @@ public class AddressBookMain
 		{
 			for (;;) 
 			{
-				System.out.println("1.create new address book  2.edit existing address book  3.show address books  4.search  5.Show contacts by city 6.Show contacts by state 7.exit");
+				System.out.println("1.create new address book  2.edit existing address book  3.show address books  4.search  5.Show contacts by city 6.Show contacts by state 7.show count of contacts 8.exit");
 				int choice = scanner.nextInt();
 				switch(choice)
 				{
@@ -53,7 +53,8 @@ public class AddressBookMain
 						break;
 				case 6: contactDetails.showPersonList(contactDetails.personWithState);
 						break;
-				case 7: break;
+				case 7: contactDetails.showCountofContacts();
+				case 8: break;
 
 			}
 
