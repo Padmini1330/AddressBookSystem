@@ -1,19 +1,20 @@
 package com.bridgelabz.addressbooksystem;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class AddContactDetails implements AddContactDetailsIF
 {
 
 	Scanner scanner = new Scanner(System.in);
-	private EditDetails contactBook[];
-	private static int numberOfContacts = 0;
 	private String addressBookName;
+	private HashMap<String, EditDetails> addressBook;
+	private EditDetails editDetails;
 
-	AddContactDetails(String addressBookName) 
+	AddContactDetails() 
 	{
-		this.contactBook = new EditDetails[20];
+		addressBook=new HashMap<String, EditDetails>();
 		this.addressBookName = addressBookName;
 	}
 
@@ -23,7 +24,7 @@ public class AddContactDetails implements AddContactDetailsIF
 	}
 	
 	@Override
-	public void addContact() {
+	public void addContact(HashMap<String, EditDetails> addressBookContact) {
 		System.out.println("Add Contact");
 		System.out.println("Enter first name:");
 		String firstName = scanner.next();
@@ -41,21 +42,25 @@ public class AddContactDetails implements AddContactDetailsIF
 		int phoneNumber = scanner.nextInt();
 		System.out.println("Enter email");
 		String email = scanner.next();
-		contactBook[numberOfContacts] = new EditDetails(firstName, lastName, address, state, city, zip, phoneNumber, email);
-		numberOfContacts++;
-	}
-
-	@Override
-	public void showContacts() 
-	{
-		for (int i = 0; i < numberOfContacts; i++) 
+		EditDetails contact = new EditDetails(firstName, lastName, address, state, city, zip, phoneNumber, email);
+		if(contact.equals(addressBookContact)) 
 		{
-			System.out.println(contactBook[i]);
+			System.out.println("Contact "+firstName+" already exists!");
+			return;
 		}
+		addressBookContact.put(firstName, contact);
+		System.out.println("Contact added successfully!");
 	}
 
 	@Override
-	public void editContact() 
+	public void showContacts(HashMap<String, EditDetails> addressBookContact) 
+	{
+		for(EditDetails contact:addressBookContact.values())
+			System.out.println(contact);
+	}
+
+	@Override
+	public void editContact(HashMap<String, EditDetails> addressBookContact) 
 	{
 		System.out.println("Edit contact:");
 		System.out.println("Select Option:\n1.First Name\n2.Last Name\n3.City\n4.State\n5.Zip Code\n6.Phone\n7.Email");
@@ -63,87 +68,71 @@ public class AddContactDetails implements AddContactDetailsIF
 		System.out.println("Enter First Name of contact to be edited");
 		String editName = scanner.next();
 		int index = 0;
-		for (index = 0; index < numberOfContacts; index++) 
+		if(!addressBookContact.containsKey(editName))
 		{
-			if (contactBook[index].getFirstName().equals(editName)) 
-			{
-				break;
-			} else 
-			{
-				System.out.println("no such contact found!");
-				return;
-			}
+			System.out.println("No such contact found!");
+			return;
 		}
+		else
+			editDetails=addressBookContact.get(editName);
+		
 		switch (choice) 
 		{
 		case 1:
 			System.out.println("Enter new First Name:");
 			String newFName = scanner.next();
-			contactBook[index].setFirstName(newFName);
-			System.out.println("Edited");
+			editDetails.setFirstName(newFName);
+			System.out.println("Edited first name");
 			break;
 		case 2:
 			System.out.println("Enter new Last Name:");
 			String newLName = scanner.next();
-			contactBook[index].setLastName(newLName);
-			System.out.println("Edited");
+			editDetails.setLastName(newLName);
+			System.out.println("Edited last name");
 			break;
 		case 3:
 			System.out.println("Enter new City:");
 			String newCity = scanner.next();
-			contactBook[index].setCity(newCity);
-			System.out.println("Edited");
+			editDetails.setCity(newCity);
+			System.out.println("Edited city");
 			break;
 		case 4:
 			System.out.println("Enter new State:");
 			String newState = scanner.next();
-			contactBook[index].setState(newState);
-			System.out.println("Edited");
+			editDetails.setState(newState);
+			System.out.println("Edited state");
 			break;
 		case 5:
 			System.out.println("Enter new Zip code:");
 			int newZip = scanner.nextInt();
-			contactBook[index].setZipCode(newZip);
-			System.out.println("Edited");
+			editDetails.setZipCode(newZip);
+			System.out.println("Edited zip code");
 			break;
 		case 6:
 			System.out.println("Enter new Phone Number:");
 			int newPNumber = scanner.nextInt();
-			contactBook[index].setPhoneNumber(newPNumber);
-			System.out.println("Edited");
+			editDetails.setPhoneNumber(newPNumber);
+			System.out.println("Edited phone number");
 			break;
 		case 7:
 			System.out.println("Enter new Email:");
 			String newEmail = scanner.next();
-			contactBook[index].setEmailId(newEmail);
-			System.out.println("Edited");
+			editDetails.setEmailId(newEmail);
+			System.out.println("Edited email");
 			break;
 		}
 	}
 
 	@Override
-	public void deleteContact() 
+	public void deleteContact(HashMap<String, EditDetails> addressBookContact) 
 	{
 		System.out.println("Enter Name of Contact to delete");
 		String deletedName = scanner.next();
-		int index = 0;
-		for (index = 0; index < numberOfContacts; index++) 
+		if(addressBookContact.containsKey(deletedName))
 		{
-			if (contactBook[index].getFirstName().equals(deletedName)) 
-			{
-				break;
-			} else 
-			{
-				System.out.println("there is no such contact existing!");
-				return;
-			}
+			addressBookContact.remove(deletedName);
+			System.out.println("deleted address book "+ deletedName);
 		}
-
-		for (int i = index + 1; i < numberOfContacts; i++) 
-		{
-			contactBook[i - 1] = contactBook[i];
-		}
-		numberOfContacts--;
-		System.out.println("Contact deleted!");
+		System.out.println("Contact name "+deletedName+" does'nt exits");
 	}
 }
