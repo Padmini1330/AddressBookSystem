@@ -106,17 +106,20 @@ public class EditDetails
 	public boolean equals(Object comparingObject) 
 	{
 		HashMap<String, EditDetails> addressBook=(HashMap<String, EditDetails>) comparingObject;
-		if(addressBook.containsKey(this.getFirstName())) {
+		if(addressBook.containsKey(this.getFirstName())) 
+		{
 			return true;
 		}
 		return false;
 	}
-	
-	
+
 	@Override
 	public String toString() 
 	{
-		return getFirstName() + "\n" + getLastName() + "\n" + getAddress() + "\n" + getPhoneNumber() + "\n"
-				+ getEmailId();
+		return "EditDetails [firstName=" + firstName + ", lastName=" + lastName + ", address=" + address + ", city="
+				+ city + ", state=" + state + ", email=" + email + ", zip=" + zip + ", phoneNumber=" + phoneNumber
+				+ "]";
 	}
+	
+	
 }
