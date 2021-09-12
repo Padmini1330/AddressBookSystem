@@ -1,5 +1,7 @@
 package com.bridgelabz.addressbooksystem;
 
+import java.util.HashMap;
+
 public class EditDetails 
 {
 
@@ -99,6 +101,16 @@ public class EditDetails
 		this.email = email;
 	}
 
+	@Override
+	public boolean equals(Object comparingObject) 
+	{
+		HashMap<String, EditDetails> addressBook=(HashMap<String, EditDetails>) comparingObject;
+		if(addressBook.containsKey(this.getFirstName())) {
+			return true;
+		}
+		return false;
+	}
+	
 	@Override
 	public String toString() 
 	{
