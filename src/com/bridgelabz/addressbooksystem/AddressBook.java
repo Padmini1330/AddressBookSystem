@@ -1,5 +1,6 @@
 package com.bridgelabz.addressbooksystem;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,6 +23,11 @@ public class AddressBook
 	public void setName(String name) 
 	{
 		this.name = name;
+	}
+	
+	public ArrayList<EditDetails> getContact() 
+	{
+		return new ArrayList<EditDetails>(addressBook.values());
 	}
 
 	public Map<String, EditDetails> getAddressBook() 
