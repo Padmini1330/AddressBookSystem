@@ -11,12 +11,17 @@ public class AddContactDetails implements AddContactDetailsIF
 	private String addressBookName;
 	private HashMap<String, EditDetails> addressBook;
 	private EditDetails editDetails;
+	
+	public HashMap<String, ArrayList<EditDetails>> personWithCity;
+	public HashMap<String, ArrayList<EditDetails>> personWithState;
 
-	AddContactDetails() 
+	public AddContactDetails() 
 	{
-		addressBook=new HashMap<String, EditDetails>();
-		this.addressBookName = addressBookName;
+		personWithCity = new HashMap<String, ArrayList<EditDetails>>();
+		personWithState = new HashMap<String, ArrayList<EditDetails>>();
 	}
+
+	
 
 	public String getAddressBookName() 
 	{
@@ -135,5 +140,51 @@ public class AddContactDetails implements AddContactDetailsIF
 			System.out.println("deleted address book "+ deletedName);
 		}
 		System.out.println("Contact name "+deletedName+" does'nt exits");
+	}
+	
+	public void addToPersonWithCity(EditDetails contact) 
+	{
+		if (personWithCity.containsKey(contact.getCity()))
+			personWithCity.get(contact.getCity()).add(contact);
+		else 
+		{
+			ArrayList<EditDetails> contactList = new ArrayList<EditDetails>();
+			contactList.add(contact);
+			personWithCity.put(contact.getCity(), contactList);
+		}
+	}
+
+	public void addToPersonWithState(EditDetails contact) 
+	{
+		if (personWithState.containsKey(contact.getState()))
+			personWithState.get(contact.getState()).add(contact);
+		else 
+		{
+			ArrayList<EditDetails> contactList = new ArrayList<EditDetails>();
+			contactList.add(contact);
+			personWithState.put(contact.getState(), contactList);
+		}
+	}
+
+	public void showPersonList(HashMap<String, ArrayList<EditDetails>> personList) 
+	{
+		ArrayList<EditDetails> personArrayList;
+		int flag=0;
+		for (String name : personList.keySet()) 
+		{
+			System.out.println("for " + name);
+			personArrayList = personList.get(name);
+			for (EditDetails contact : personArrayList) 
+			{
+				System.out.println(contact);
+				flag=1;
+			}
+		}
+		
+		if(flag==0)
+		{
+			System.out.println("No person's Details found");
+		}
+
 	}
 }
