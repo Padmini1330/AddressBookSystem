@@ -1,14 +1,18 @@
 package com.bridgelabz.addressbooksystem;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+
 public class MultipleAddressBook 
 {
-	private AddContactDetails addressBookArray[];
-	private int bookNumber = -1;
-	private static int numberOfAddressBooks = 0;
+	private AddressBook addressBook;
+	private Map<String, AddressBook> addressBooksArray;
 	Scanner scanner = new Scanner(System.in);
-	public MultipleAddressBook() {
-		addressBookArray = new AddContactDetails[10];
+	
+	public MultipleAddressBook() 
+	{
+		addressBooksArray = new HashMap<String, AddressBook>();
 	}
 
 	public void addAddressBooks() 
@@ -16,66 +20,32 @@ public class MultipleAddressBook
 		System.out.println("enter address book name");
 		String name = scanner.next();
 		int index = 0;
-		for (index = 0; index < numberOfAddressBooks; index++) 
+		if (addressBooksArray.containsKey(name)) 
 		{
-			if (addressBookArray[index].getAddressBookName().equals(name)) 
-			{
-				System.out.println("this contact book already exists!");
-
-			}
+			System.out.println("address book "+name+" already exists!");
+			return;
 		}
-		addressBookArray[numberOfAddressBooks] = new AddContactDetails(name);
-		System.out.println("address book has been added!");
-		numberOfAddressBooks++;
+		System.out.println("created address book "+name);
+		addressBooksArray.put(name, new AddressBook(name));
 	}
 
 	public void showAddressBook() 
 	{
-		for (int i = 0; i < numberOfAddressBooks; i++) 
+		System.out.println("Addressbooks:");
+		for (String addressBookName : addressBooksArray.keySet()) 
 		{
-			System.out.println(addressBookArray[i].getAddressBookName());
+			System.out.println(addressBookName);
 		}
 	}
 
-	public int selectAddressBook() 
-	{
-		System.out.println("enter Contact book name");
-		String name = scanner.next();
-		int index = 0;
-		for (index = 0; index < numberOfAddressBooks; index++) 
+	public AddressBook selectAddressBook(String name) 
+	{	
+		if (addressBooksArray.containsKey(name)) 
 		{
-			if (addressBookArray[index].getAddressBookName().equals(name)) 
-			{
-				bookNumber = index;
-				break;
-			} else
-				continue;
+			addressBook = addressBooksArray.get(name);
+			return addressBook;
 		}
-		if (bookNumber == -1) 
-		{
-			System.out.println("no such contact book");
-			return -1;
-		}
-		return 1;
-	}
-
-	public void addContact() 
-	{
-		addressBookArray[bookNumber].addContact();
-	}
-
-	public void editContact() 
-	{
-		addressBookArray[bookNumber].editContact();
-	}
-
-	public void showContacts() 
-	{
-		addressBookArray[bookNumber].showContacts();
-	}
-
-	public void deleteContact() 
-	{
-		addressBookArray[bookNumber].deleteContact();
+		System.out.println("Address book "+name+" not found");
+		return null;
 	}
 }
