@@ -101,6 +101,7 @@ public class EditDetails
 		this.email = email;
 	}
 
+	
 	@Override
 	public boolean equals(Object comparingObject) 
 	{
@@ -110,6 +111,7 @@ public class EditDetails
 		}
 		return false;
 	}
+	
 	
 	@Override
 	public String toString() 
