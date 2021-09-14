@@ -1,5 +1,4 @@
 package com.bridgelabz.addressbooksystem;
-
 import java.util.Scanner;
 public class AddressBookMain 
 {
@@ -20,7 +19,7 @@ public class AddressBookMain
 		{
 			for (;;) 
 			{
-				System.out.println("1.create new address book  2.edit existing address book  3.show address books  4.search  5.Show contacts by city 6.Show contacts by state 7.show count of contacts 8.exit");
+				System.out.println("1.create new address book  2.edit existing address book  3.show address books  4.search  5.Show contacts by city 6.Show contacts by state 7.show count of contacts based on city 8.show count of contacts based on state 9.exit");
 				int choice = scanner.nextInt();
 				switch(choice)
 				{
@@ -49,13 +48,23 @@ public class AddressBookMain
 							String city=scanner.next();
 							multipleAddressBook.searchPersonByCity(firstName, city);
 						}
-				case 5: contactDetails.showPersonList(contactDetails.personWithCity);
+				case 5: System.out.println("Enter city name:");
+						String city=scanner.next();				
+						contactDetails.showPersonList(city,contactDetails.personWithCity);
 						break;
-				case 6: contactDetails.showPersonList(contactDetails.personWithState);
+				case 6: System.out.println("Enter state name:");
+						String state=scanner.next();	
+						contactDetails.showPersonList(state,contactDetails.personWithState);
 						break;
-				case 7: contactDetails.showCountofContacts();
-				case 8: break;
-
+				case 7: System.out.println("Enter city name: ");
+						city=scanner.next();
+						contactDetails.showCountofContacts(city,contactDetails.personWithCity);
+						break;
+				case 8: System.out.println("Enter state name: ");
+						state=scanner.next();
+						contactDetails.showCountofContacts(state,contactDetails.personWithState);
+						break;
+				case 9: break;
 			}
 
 			System.out.println("1.add contact 2.show contact 3.edit contact 4.delete contact 5.exit");
@@ -83,5 +92,3 @@ public class AddressBookMain
 	}
   }
 }
-
-

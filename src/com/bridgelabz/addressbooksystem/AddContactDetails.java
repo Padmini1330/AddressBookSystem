@@ -20,9 +20,7 @@ public class AddContactDetails implements AddContactDetailsIF
 		personWithCity = new HashMap<String, ArrayList<EditDetails>>();
 		personWithState = new HashMap<String, ArrayList<EditDetails>>();
 	}
-
 	
-
 	public String getAddressBookName() 
 	{
 		return this.addressBookName;
@@ -54,6 +52,8 @@ public class AddContactDetails implements AddContactDetailsIF
 			System.out.println("Contact "+firstName+" already exists!");
 			return;
 		}
+		addToPersonWithCity(contact);
+		addToPersonWithState(contact);
 		addressBookContact.put(firstName, contact);
 		System.out.println("Contact added successfully!");
 	}
@@ -138,6 +138,7 @@ public class AddContactDetails implements AddContactDetailsIF
 		{
 			addressBookContact.remove(deletedName);
 			System.out.println("deleted address book "+ deletedName);
+			return;
 		}
 		System.out.println("Contact name "+deletedName+" does'nt exits");
 	}
@@ -166,45 +167,24 @@ public class AddContactDetails implements AddContactDetailsIF
 		}
 	}
 
-	public void showPersonList(HashMap<String, ArrayList<EditDetails>> personList) 
+	public void showPersonList(String location, HashMap<String, ArrayList<EditDetails>> personList) 
 	{
-		ArrayList<EditDetails> personArrayList;
-		int flag=0;
-		for (String name : personList.keySet()) 
-		{
-			System.out.println("for " + name);
-			personArrayList = personList.get(name);
-			for (EditDetails contact : personArrayList) 
-			{
-				System.out.println(contact);
-				flag=1;
-			}
-		}
-		
-		if(flag==0)
-		{
-			System.out.println("No person's Details found");
-		}
-
+		personList.values()
+		.stream()
+		.map(place -> place.stream().filter(person -> person.getCity().equals(location) || person.getState().equals(location)))
+		.forEach(contact -> System.out.println("Contact's list based on "+ location+" is " + contact));
 	}
 	
-	public void showCountofContacts() 
+	public void showCountofContacts(String location, HashMap<String, ArrayList<EditDetails>> personList ) 
 	{
-		int flag1=0,flag2=0;
-		System.out.println("number of contact persons by state: ");
-		for (String name : personWithState.keySet()) 
-		{
-			System.out.println("Count of people/person in state " + name +" is " + personWithState.get(name).size());
-			flag1=1;
-		}
-		System.out.println("number of contact persons by city: ");
-		for (String name : personWithCity.keySet())
-		{
-			System.out.println("Count of people/person in city " + name +" is " + personWithCity.get(name).size());
-			flag2=1;
-		}
+		System.out.println("Number of contact persons in "+location+" are:");
 		
-		if(flag1==0 || flag2==0)
-			System.out.println("No contacts found!!");
+		long count = personList.values()
+				.stream()
+				.map(place -> place.stream().filter(person -> person.getCity().equals(location) || person.getState().equals(location)))
+				.count();
+		
+		
+		System.out.println("No contacts found in the selected location!");
 	}
 }
