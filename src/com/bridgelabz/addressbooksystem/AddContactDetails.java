@@ -2,7 +2,9 @@ package com.bridgelabz.addressbooksystem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class AddContactDetails implements AddContactDetailsIF
 {
@@ -186,5 +188,15 @@ public class AddContactDetails implements AddContactDetailsIF
 		
 		
 		System.out.println("No contacts found in the selected location!");
+	}
+	
+	public void sortContacts(HashMap<String, EditDetails> addressBook) 
+	{
+		ArrayList<EditDetails> personList=new ArrayList<EditDetails>(addressBook.values());
+		List<EditDetails> sortedContactsList=personList.stream()
+				.sorted((s1,s2)->s1.getFirstName().compareTo(s2.getFirstName()))
+				.collect(Collectors.toList());
+		System.out.println("Contacts list after sorting : ");
+		System.out.println(sortedContactsList);
 	}
 }
