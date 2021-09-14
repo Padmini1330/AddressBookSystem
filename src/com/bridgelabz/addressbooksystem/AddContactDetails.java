@@ -54,8 +54,8 @@ public class AddContactDetails implements AddContactDetailsIF
 			System.out.println("Contact "+firstName+" already exists!");
 			return;
 		}
-		addToPersonWithCity(contact);
-		addToPersonWithState(contact);
+		personWithCity(contact);
+		personWithState(contact);
 		addressBookContact.put(firstName, contact);
 		System.out.println("Contact added successfully!");
 	}
@@ -145,7 +145,7 @@ public class AddContactDetails implements AddContactDetailsIF
 		System.out.println("Contact name "+deletedName+" does'nt exits");
 	}
 	
-	public void addToPersonWithCity(EditDetails contact) 
+	public void personWithCity(EditDetails contact) 
 	{
 		if (personWithCity.containsKey(contact.getCity()))
 			personWithCity.get(contact.getCity()).add(contact);
@@ -157,7 +157,7 @@ public class AddContactDetails implements AddContactDetailsIF
 		}
 	}
 
-	public void addToPersonWithState(EditDetails contact) 
+	public void personWithState(EditDetails contact) 
 	{
 		if (personWithState.containsKey(contact.getState()))
 			personWithState.get(contact.getState()).add(contact);
