@@ -67,7 +67,7 @@ public class AddressBookMain
 				case 9: break;
 			}
 
-			System.out.println("1.add contact 2.show contact 3.edit contact 4.delete contact 5.exit");
+			System.out.println("1.add contact 2.show contact 3.edit contact 4.delete contact 5. sort contacts 5.exit");
 			int choice1 = scanner.nextInt();
 			if (choice1 == 5)
 				break;
@@ -85,6 +85,9 @@ public class AddressBookMain
 				break;
 			case 4:
 				contactDetails.deleteContact(multipleAddressBook.selectAddressBook(addressBookName).addressBook);
+				break;
+			case 5:
+				contactDetails.sortContacts(multipleAddressBook.selectAddressBook(addressBookName).addressBook);
 				break;
 			}
 
