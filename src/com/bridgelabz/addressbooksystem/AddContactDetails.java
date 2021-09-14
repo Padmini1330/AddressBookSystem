@@ -20,9 +20,7 @@ public class AddContactDetails implements AddContactDetailsIF
 		personWithCity = new HashMap<String, ArrayList<EditDetails>>();
 		personWithState = new HashMap<String, ArrayList<EditDetails>>();
 	}
-
 	
-
 	public String getAddressBookName() 
 	{
 		return this.addressBookName;
@@ -54,6 +52,8 @@ public class AddContactDetails implements AddContactDetailsIF
 			System.out.println("Contact "+firstName+" already exists!");
 			return;
 		}
+		addToPersonWithCity(contact);
+		addToPersonWithState(contact);
 		addressBookContact.put(firstName, contact);
 		System.out.println("Contact added successfully!");
 	}
@@ -138,6 +138,7 @@ public class AddContactDetails implements AddContactDetailsIF
 		{
 			addressBookContact.remove(deletedName);
 			System.out.println("deleted address book "+ deletedName);
+			return;
 		}
 		System.out.println("Contact name "+deletedName+" does'nt exits");
 	}
@@ -166,25 +167,26 @@ public class AddContactDetails implements AddContactDetailsIF
 		}
 	}
 
-	public void showPersonList(HashMap<String, ArrayList<EditDetails>> personList) 
+	public void showPersonList(String location, HashMap<String, ArrayList<EditDetails>> personList) 
 	{
-		ArrayList<EditDetails> personArrayList;
-		int flag=0;
-		for (String name : personList.keySet()) 
+		personList.values()
+		.stream()
+		.flatMap(c -> c.stream().filter(s -> s.getCity().equals(location) || s.getState().equals(location)))
+		.forEach(contact -> System.out.println("Contact's list based on "+ location+" is " + contact));
+	}
+	
+	public void showCountofContacts(String location, HashMap<String, ArrayList<EditDetails>> personList ) 
+	{
+		System.out.println("Number of contact persons in "+location+" are:");
+		for(String name: personList.keySet())
 		{
-			System.out.println("for " + name);
-			personArrayList = personList.get(name);
-			for (EditDetails contact : personArrayList) 
+			if(name.equals(location))
 			{
-				System.out.println(contact);
-				flag=1;
+				System.out.println("Count of persons in "+location+" is "+personList.get(name).size());
+				return;
 			}
 		}
 		
-		if(flag==0)
-		{
-			System.out.println("No person's Details found");
-		}
-
+		System.out.println("No contacts found in the selected location!");
 	}
 }
