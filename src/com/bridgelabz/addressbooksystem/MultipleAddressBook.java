@@ -1,8 +1,11 @@
 package com.bridgelabz.addressbooksystem;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class MultipleAddressBook 
 {
@@ -40,39 +43,24 @@ public class MultipleAddressBook
 	
 	public void searchPersonByState(String name, String state) 
 	{
-		int searchCount=0;
-		for(AddressBook addressBook:addressBooksArray.values()) 
+		for(AddressBook addressBook : addressBooksArray.values()) 
 		{
-			for(EditDetails contact:addressBook.getContact()) 
-			{
-				if(contact.getFirstName().equals(name) && contact.getState().equals(state)) 
-				{
-					System.out.println("contact "+name+" is found ");
-					System.out.println(contact);
-					searchCount++;
-				}
-			}
+			List<EditDetails> contactList = addressBook.getContact();
+			contactList.stream()
+				.filter(person -> person.getFirstName().equals(name) && person.getState().equals(state))
+				.forEach(person -> System.out.println(person));
 		}
-		if(searchCount==0)
-			System.out.println("Searched for contact "+ name+ " Contact not found!");
-	}
+	}	
+		
 	public void searchPersonByCity(String name, String city) 
 	{
-		int searchCount=0;
-		for(AddressBook addressBook:addressBooksArray.values()) 
+		for(AddressBook addressBook : addressBooksArray.values())
 		{
-			for(EditDetails contact:addressBook.getContact()) 
-			{
-				if(contact.getFirstName().equals(name) && contact.getCity().equals(city)) 
-				{
-					System.out.println("contact "+name+" is found ");
-					System.out.println(contact);
-					searchCount++;
-				}
-			}
+			List<EditDetails> contactList = addressBook.getContact();
+			contactList.stream()
+				.filter(person -> person.getFirstName().equals(name) && person.getCity().equals(city))
+				.forEach(person -> System.out.println(person));
 		}
-		if(searchCount==0)
-			System.out.println("Searched for contact "+ name+ ". Contact not found!");
 	}
 
 	public AddressBook selectAddressBook(String name) 
