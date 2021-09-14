@@ -71,23 +71,25 @@ public class AddressBookMain
 			int choice1 = scanner.nextInt();
 			switch (choice1) 
 			{
-			case 1:
-				contactDetails.addContact(multipleAddressBook.selectAddressBook(addressBookName).addressBook);
-				break;
-			case 2:
-				contactDetails.showContacts(multipleAddressBook.selectAddressBook(addressBookName).addressBook);
-				break;
-			case 3:
-				contactDetails.editContact(multipleAddressBook.selectAddressBook(addressBookName).addressBook);
-				break;
-			case 4:
-				contactDetails.deleteContact(multipleAddressBook.selectAddressBook(addressBookName).addressBook);
-				break;
+			case 1:contactDetails.addContact(multipleAddressBook.selectAddressBook(addressBookName).addressBook);
+					break;
+				
+			case 2:contactDetails.showContacts(multipleAddressBook.selectAddressBook(addressBookName).addressBook);
+					break;
+				
+			case 3:contactDetails.editContact(multipleAddressBook.selectAddressBook(addressBookName).addressBook);
+					break;
+				
+			case 4:contactDetails.deleteContact(multipleAddressBook.selectAddressBook(addressBookName).addressBook);
+					break;
+				
 			case 5:System.out.println("1.by firstname 2.by city 3.by state 4.by zipcode");
 				   int sortChoice = scanner.nextInt();
 				   contactDetails.sortContacts(multipleAddressBook.selectAddressBook(addressBookName).addressBook, sortChoice);
 				   break;
+				   
 			case 6: break;
+			
 			default: break;
 			}
 
