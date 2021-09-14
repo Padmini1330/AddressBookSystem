@@ -169,19 +169,19 @@ public class AddContactDetails implements AddContactDetailsIF
 		}
 	}
 
-	public void showPersonList(String location, HashMap<String, ArrayList<EditDetails>> personList) 
+	public void showPersonList(String location, HashMap<String, ArrayList<EditDetails>> contactsList) 
 	{
-		personList.values()
+		contactsList.values()
 		.stream()
 		.map(place -> place.stream().filter(person -> person.getCity().equals(location) || person.getState().equals(location)))
 		.forEach(contact -> System.out.println("Contact's list based on "+ location+" is " + contact));
 	}
 	
-	public void showCountofContacts(String location, HashMap<String, ArrayList<EditDetails>> personList ) 
+	public void showCountofContacts(String location, HashMap<String, ArrayList<EditDetails>> contactsList ) 
 	{
 		System.out.println("Number of contact persons in "+location+" are:");
 		
-		long count = personList.values()
+		long count = contactsList.values()
 				.stream()
 				.map(place -> place.stream().filter(person -> person.getCity().equals(location) || person.getState().equals(location)))
 				.count();
@@ -190,13 +190,47 @@ public class AddContactDetails implements AddContactDetailsIF
 		System.out.println("No contacts found in the selected location!");
 	}
 	
-	public void sortContacts(HashMap<String, EditDetails> addressBook) 
+	public void sortContacts(HashMap<String, EditDetails> addressBook, int sortKey) 
 	{
-		ArrayList<EditDetails> personList=new ArrayList<EditDetails>(addressBook.values());
-		List<EditDetails> sortedContactsList=personList.stream()
-				.sorted((s1,s2)->s1.getFirstName().compareTo(s2.getFirstName()))
-				.collect(Collectors.toList());
-		System.out.println("Contacts list after sorting : ");
-		System.out.println(sortedContactsList);
+		ArrayList<EditDetails> contactsList = new ArrayList<EditDetails>(addressBook.values());
+	
+		switch (sortKey) 
+		{
+		case 1:
+			List<EditDetails> sortedContactsList = contactsList.stream()
+					.sorted((s1, s2) -> s1.getFirstName()
+					.compareTo(s2.getFirstName()))
+					.collect(Collectors.toList());
+			System.out.println("Contacts after sorting : ");
+			System.out.println(sortedContactsList);
+			break;
+		case 2:
+			List<EditDetails> sortedContactsByCityList = contactsList.stream()
+					.sorted((s1, s2) -> s1.getCity()
+					.compareTo(s2.getCity()))
+					.collect(Collectors.toList());
+			System.out.println("Contacts after sorting : ");
+			System.out.println(sortedContactsByCityList);
+			break;
+		case 3:
+			List<EditDetails> sortedContactsByStateList = contactsList.stream()
+					.sorted((s1, s2) -> s1.getState()
+					.compareTo(s2.getState()))
+					.collect(Collectors.toList());
+			System.out.println("Contacts after sorting : ");
+			System.out.println(sortedContactsByStateList);
+			break;
+		case 4:
+			List<EditDetails> sortedContactsByZipList = contactsList.stream()
+					.sorted((s1, s2) -> Integer.valueOf(s1.getZipCode())
+					.compareTo(Integer.valueOf(s2.getZipCode())))
+					.collect(Collectors.toList());
+			System.out.println("Contacts after sorting : ");
+			System.out.println(sortedContactsByZipList);
+			break;
+		default:
+			break;
+		}
 	}
+
 }
