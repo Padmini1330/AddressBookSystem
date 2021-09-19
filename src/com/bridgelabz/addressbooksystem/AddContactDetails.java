@@ -1,5 +1,10 @@
 package com.bridgelabz.addressbooksystem;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,10 +27,19 @@ public class AddContactDetails implements AddContactDetailsIF
 		personWithCity = new HashMap<String, ArrayList<EditDetails>>();
 		personWithState = new HashMap<String, ArrayList<EditDetails>>();
 	}
+	public ArrayList<EditDetails> getContact() 
+	{
+		return new ArrayList<EditDetails>(addressBook.values());
+	}
 	
 	public String getAddressBookName() 
 	{
 		return this.addressBookName;
+	}
+	
+	public void setAddressBookName(String addressBookName) 
+	{
+		this.addressBookName = addressBookName;
 	}
 	
 	@Override
@@ -58,6 +72,9 @@ public class AddContactDetails implements AddContactDetailsIF
 		personWithState(contact);
 		addressBookContact.put(firstName, contact);
 		System.out.println("Contact added successfully!");
+		
+		
+				
 	}
 
 	@Override
@@ -233,4 +250,49 @@ public class AddContactDetails implements AddContactDetailsIF
 		}
 	}
 
+	@Override
+	public List<String> readAddressDataFromFile() 
+	{
+		List<String> addressBookList = new ArrayList<String>();
+		String addressBookName = this.getAddressBookName();
+		System.out.println(addressBookName); 
+		String fileName = addressBookName+".txt";
+		Path pathToFile = Paths.get(fileName);
+	    System.out.println(pathToFile.toAbsolutePath());
+		System.out.println("Reading the data from file: "+fileName+"\n");
+		try {
+			Files.lines(pathToFile)
+				.map(line -> line.trim())
+				.forEach(employeeDetails -> {
+					System.out.println(employeeDetails);
+					addressBookList.add(employeeDetails);
+			});
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+		return addressBookList;
+	}
+	
+	@Override
+	public void writeToAddressBookFile() 
+	{
+		String addressBookName = this.getAddressBookName();
+		String fileName = addressBookName+ ".txt";
+		StringBuffer addressBookBuffer = new StringBuffer();
+		addressBook.values().stream().forEach(contact -> {
+			String personDataString = contact.toString().concat("\n");
+			addressBookBuffer.append(personDataString);
+		});
+
+		try 
+		{
+			Files.write(Paths.get(fileName), addressBookBuffer.toString().getBytes());
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+	}
 }
